@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../games/tic_tac_toe.dart';
 import '../games/rock_paper_scissors.dart';
+import '../games/connect_four.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -72,6 +73,19 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const RockPaperScissorsGame(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 16),
+                _GameButton(
+                  title: 'Connect 4',
+                  icon: Icons.circle,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ConnectFourGame(),
                       ),
                     );
                   },
