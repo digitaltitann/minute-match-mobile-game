@@ -62,6 +62,9 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final boardSize = screenHeight * 0.45;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -70,95 +73,105 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
         title: const Text('Tic Tac Toe'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
-          // Player indicators
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _PlayerIndicator(
-                label: 'Player X',
-                symbol: 'X',
-                isActive: isXTurn && winner == null,
-                color: Colors.purpleAccent,
-              ),
-              _PlayerIndicator(
-                label: 'Player O',
-                symbol: 'O',
-                isActive: !isXTurn && winner == null,
-                color: Colors.cyanAccent,
-              ),
-            ],
-          ),
-          const Spacer(),
-          // Game board
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.deepPurple.shade900.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.all(16),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 20),
+                  // Player indicators
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _PlayerIndicator(
+                        label: 'Player X',
+                        symbol: 'X',
+                        isActive: isXTurn && winner == null,
+                        color: Colors.purpleAccent,
+                      ),
+                      _PlayerIndicator(
+                        label: 'Player O',
+                        symbol: 'O',
+                        isActive: !isXTurn && winner == null,
+                        color: Colors.cyanAccent,
+                      ),
+                    ],
                   ),
-                  itemCount: 9,
-                  itemBuilder: (context, index) {
-                    return _GameCell(
-                      value: board[index],
-                      isWinning: winningLine.contains(index),
-                      onTap: () => _handleTap(index),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ),
-          const Spacer(),
-          // Status / Result
-          if (winner != null)
-            Column(
-              children: [
-                Text(
-                  winner == 'Draw' ? "It's a Draw!" : 'Player $winner Wins!',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: winner == 'X'
-                        ? Colors.purpleAccent
-                        : winner == 'O'
-                            ? Colors.cyanAccent
-                            : Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: _resetGame,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 32,
-                      vertical: 16,
+                  const SizedBox(height: 30),
+                  // Game board
+                  Container(
+                    width: boardSize,
+                    height: boardSize,
+                    constraints: const BoxConstraints(
+                      maxWidth: 350,
+                      maxHeight: 350,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple.shade900.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(16),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                      ),
+                      itemCount: 9,
+                      itemBuilder: (context, index) {
+                        return _GameCell(
+                          value: board[index],
+                          isWinning: winningLine.contains(index),
+                          onTap: () => _handleTap(index),
+                        );
+                      },
                     ),
                   ),
-                  icon: const Icon(Icons.refresh),
-                  label: const Text(
-                    'Play Again',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-              ],
+                  const SizedBox(height: 30),
+                  // Status / Result
+                  if (winner != null)
+                    Column(
+                      children: [
+                        Text(
+                          winner == 'Draw' ? "It's a Draw!" : 'Player $winner Wins!',
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: winner == 'X'
+                                ? Colors.purpleAccent
+                                : winner == 'O'
+                                    ? Colors.cyanAccent
+                                    : Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton.icon(
+                          onPressed: _resetGame,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.deepPurple,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 32,
+                              vertical: 16,
+                            ),
+                          ),
+                          icon: const Icon(Icons.refresh),
+                          label: const Text(
+                            'Play Again',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
-          const SizedBox(height: 40),
-        ],
+          ),
+        ),
       ),
     );
   }
