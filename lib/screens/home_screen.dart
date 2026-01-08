@@ -22,9 +22,12 @@ class HomeScreen extends StatelessWidget {
         ),
         child: SafeArea(
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                 const Text(
                   'MINUTE',
                   style: TextStyle(
@@ -97,7 +100,9 @@ class HomeScreen extends StatelessWidget {
                   onTap: null,
                   enabled: false,
                 ),
-              ],
+                  ],
+                ),
+              ),
             ),
           ),
         ),
