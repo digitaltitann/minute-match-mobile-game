@@ -3,6 +3,7 @@ import '../games/tic_tac_toe.dart';
 import '../games/rock_paper_scissors.dart';
 import '../games/connect_four.dart';
 import '../games/hangman.dart';
+import '../games/word_blitz.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -103,6 +104,19 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const HangmanGame(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 16),
+                _GameButton(
+                  title: 'Word Blitz',
+                  icon: Icons.flash_on,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WordBlitzGame(),
                       ),
                     );
                   },
