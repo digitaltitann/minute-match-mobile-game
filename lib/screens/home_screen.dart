@@ -124,8 +124,8 @@ class _GameButton extends StatelessWidget {
     return GestureDetector(
       onTap: enabled ? onTap : null,
       child: Container(
-        width: 250,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        width: 280,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         decoration: BoxDecoration(
           color: enabled ? Colors.deepPurple : Colors.grey.shade800,
           borderRadius: BorderRadius.circular(12),
@@ -147,12 +147,15 @@ class _GameButton extends StatelessWidget {
               color: enabled ? Colors.white : Colors.grey,
             ),
             const SizedBox(width: 12),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: enabled ? Colors.white : Colors.grey,
+            Flexible(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: enabled ? Colors.white : Colors.grey,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
