@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../games/tic_tac_toe.dart';
 import '../games/rock_paper_scissors.dart';
 import '../games/connect_four.dart';
+import '../games/hangman.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -89,6 +90,19 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const ConnectFourGame(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 16),
+                _GameButton(
+                  title: 'Hangman',
+                  icon: Icons.person,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HangmanGame(),
                       ),
                     );
                   },
